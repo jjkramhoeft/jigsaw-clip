@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jigsaw</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23ffb35c' d='M4 4h9a3 3 0 1 1 6 0h9v9a3 3 0 1 0 0 6v9h-9a3 3 0 1 1-6 0H4z'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="bar" id="bar">
+    <div class="brand">Jig<span>saw</span></div>
+
+    <div class="group">
+      <label>Clip <select id="clip"></select></label>
+      <label>Pieces <select id="count"></select></label>
+      <button id="new" class="primary" title="New puzzle (N)">New puzzle</button>
+      <button id="upload" title="Use a video from your computer, or drop one on the page">Open video…</button>
+      <input type="file" id="file" accept="video/*" hidden>
+    </div>
+
+    <div class="group player">
+      <button id="play" class="icon" title="Pause (Space)"></button>
+      <button id="back" class="icon" title="Step back (←)"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M5 4h3v16H5zM20 4.5v15L9 12z"/></svg></button>
+      <input type="range" id="scrub" min="0" max="1000" value="0" aria-label="Video position">
+      <button id="fwd" class="icon" title="Step forward (→)"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M16 4h3v16h-3zM4 4.5v15L15 12z"/></svg></button>
+      <span class="time" id="time"></span>
+      <select id="speed" aria-label="Playback speed"></select>
+    </div>
+
+    <div class="group">
+      <button id="ghost" aria-pressed="false" title="Show the video faintly on the board (G)">Ghost</button>
+      <button id="scatter" title="Scatter loose pieces (S)">Scatter</button>
+      <button id="fit" title="Fit the table to the window (F)">Fit</button>
+      <button id="sound" aria-pressed="true" title="Sound effects">Sound</button>
+    </div>
+
+    <div class="stats">
+      <span id="progress">0 / 0 placed</span>
+      <span id="timer">0:00</span>
+    </div>
+  </header>
+
+  <main id="stage">
+    <canvas id="table"></canvas>
+    <div class="hint" id="hint">Drag pieces onto the board · scroll or pinch to zoom · drag the table to pan</div>
+    <div class="toast" id="toast" hidden></div>
+    <div class="drop" id="drop">Drop a video to make a puzzle</div>
+    <div class="win" id="win" hidden>
+      <h2>Solved!</h2>
+      <p id="winText"></p>
+      <div class="actions">
+        <button id="again" class="primary">Play again</button>
+        <button id="admire">Watch the clip</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="videos/library.js"></script>
+  <script src="js/pieces.js"></script>
+  <script src="js/clips.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
