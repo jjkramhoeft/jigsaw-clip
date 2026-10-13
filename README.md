@@ -2,6 +2,8 @@
 
 A jigsaw puzzle game where the pieces show short video clips instead of a still picture.
 
+![A 12-piece Steam Train puzzle in progress: three joined pieces show the train carriages, with the remaining pieces scattered around the board](images/jigsaw.png)
+
 Each puzzle is a video, typically a few seconds long and looping, cut into classic jigsaw pieces. Every piece keeps playing its part of the clip as you drag it around the board. To solve the puzzle you match shapes and edges like a normal jigsaw, and you also use the motion: a passing car, a wave or a swinging arm moves from one piece into the next, so you can see which pieces belong together.
 
 ## Features
