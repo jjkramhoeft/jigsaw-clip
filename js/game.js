@@ -543,11 +543,20 @@
     view.y1 = view.y0 + st.H / v.s;
     const lifted = st.drag && st.drag.type === 'piece' ? st.drag.g : st.tween ? st.tween.g : null;
 
-    for (const p of st.order) if (p.g.locked && p.g !== lifted) drawPiece(p, view, 0.35);
-    for (const p of st.order) if (!p.g.locked && p.g !== lifted) drawPiece(p, view, 1);
-    if (lifted) {
-      for (const p of lifted.pieces) drawShadow(p);
-      for (const p of lifted.pieces) drawPiece(p, view, 1);
+    // Once solved, the pieces fade into one seamless picture with no cut lines.
+    const seamless = st.solved ? 1 - st.outline : 0;
+    if (seamless < 1) {
+      for (const p of st.order) if (p.g.locked && p.g !== lifted) drawPiece(p, view, 0.35);
+      for (const p of st.order) if (!p.g.locked && p.g !== lifted) drawPiece(p, view, 1);
+      if (lifted) {
+        for (const p of lifted.pieces) drawShadow(p);
+        for (const p of lifted.pieces) drawPiece(p, view, 1);
+      }
+    }
+    if (seamless > 0) {
+      ctx.globalAlpha = seamless;
+      ctx.drawImage(frame, 0, 0, BW, st.bh);
+      ctx.globalAlpha = 1;
     }
 
     drawConfetti();
