@@ -17,6 +17,7 @@
   const SPEEDS = [0.25, 0.5, 1, 1.5, 2];
   const STEP = 1 / 30;
   const LIBRARY = Array.isArray(window.VIDEO_LIBRARY) ? window.VIDEO_LIBRARY : [];
+  const DEFAULT_CLIP = 'lib:Mandelbrot Dive.mp4';
 
   const st = {
     src: null, time: 0, playing: true, speed: 1, dirty: true,
@@ -62,8 +63,10 @@
     const params = new URLSearchParams(location.search);
     if (params.has('clip')) saved.clip = params.get('clip');
     if (params.has('pieces')) saved.count = +params.get('pieces');
-    clipSel.value = saved.clip && [...clipSel.options].some((o) => o.value === saved.clip) ? saved.clip : 'sunset';
-    countSel.value = COUNTS.includes(saved.count) ? String(saved.count) : '48';
+    const has = (key) => [...clipSel.options].some((o) => o.value === key);
+    const fallback = has(DEFAULT_CLIP) ? DEFAULT_CLIP : 'sunset';
+    clipSel.value = saved.clip && has(saved.clip) ? saved.clip : fallback;
+    countSel.value = COUNTS.includes(saved.count) ? String(saved.count) : '24';
     st.sound = saved.sound !== false;
     $('sound').setAttribute('aria-pressed', String(st.sound));
   }
